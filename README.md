@@ -28,7 +28,7 @@ mv post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish
 3. Install required gems:
 
 ```
-gem intall zip 
+gem install zip 
 ```
 
 # Configuration
@@ -46,18 +46,18 @@ To change Environments edit post_publish.rb
 nano post_publish.rb
 ```
 
-2. choosing recording format as you need:
+2. choosing the recording format as you need:
 > **Note:**
-> If your using video format for recording, skip this session.
+> If you are using video format for recording, skip this session.
 
 If you are using presentation format for recordings, you have to change ` published_files = "/var/bigbluebutton/published/video/#{meeting_id}"` to `published_files = "/var/bigbluebutton/published/presentation/#{meeting_id}"`
 
 to install additional recording processing formats see here:
 https://docs.bigbluebutton.org/administration/customize/#install-additional-recording-processing-formats
 
-3. Write bucket policy to access AWS S3 with spesfict IPs to download recording files:
+3. Write a bucket policy to access AWS S3 with specific IPs to download recording files:
 ```
-# If you want to access to s3 bucket with all ips, you can delete condition section: "Not Recommended"
+# If you want to access to s3 bucket with all IPs, you can delete the condition section: "Not Recommended"
 {
     "Version": "2012-10-17",
     "Id": "S3PolicyId1",
