@@ -43,7 +43,7 @@ end
 
 
 # Set AWS environment variables and other
-ENV['AWS_ACCESS_KEY_ID'] = '$AWS_ACCESS_KEY_I'
+ENV['AWS_ACCESS_KEY_ID'] = '$AWS_ACCESS_KEY_ID'
 ENV['AWS_SECRET_ACCESS_KEY'] = '$AWS_SECRET_ACCESS_KEY'
 ENV['AWS_REGION'] = '$AWS_REGION'
 bucket_name = '$bucket_name'
@@ -75,13 +75,27 @@ webhook_url = "#{discord_webhook_url}"
 # Get the current time
 current_time = Time.now.strftime('%Y-%m-%d %H:%M:%S')
 
-# Define the message content
-message_content = "```Meeting ID: #{meeting_id}```"
-message_content += "```Downloading URL:\nhttps://s3.amazo[naws.com/#{bucket_name}/#{meeting_id}.zip```"
-message_content += "```Streaming Recording URL: https://#{bbb_domain}/playback/video/#{meeting_id}\n\n//Note: The streaming link will be expired after 14 days.```"
-message_content += "```Current Time: #{current_time}\nStatus: #{status}```\n"
-message_content += "---------------------------------------------------------------------------------------------------------------\n"
-message_content += "---------------------------------------------------------------------------------------------------------------\n"
+if status
+
+  # Define the message content
+    message_content =  "```Meeting ID: #{meeting_id}```"
+    message_content += "```Downloading URL:\nhttps://s3.amazonaws.com/#{bucket_name}/#{meeting_id}.zip```"
+    message_content += "```Streaming Recording URL: https://#{bbb_domain}/playback/video/#{meeting_id}\n\n//Note: The streaming link will be expired after 14 days.```"
+    message_content += "```Current Time: #{current_time}\nStatus: #{status}```\n"
+    message_content += "---------------------------------------------------------------------------------------------------------------\n"
+    message_content += "---------------------------------------------------------------------------------------------------------------\n"
+  
+  else
+  
+  # Define the message content
+    message_content =  "```Status: #{status}\nRecords weren't sent to S3.\nFor more information please check logs in ''\\var\\log\\bigbluebutton\\post_publish.log''```"
+    message_content += "```Meeting ID: #{meeting_id}```"
+    message_content += "```Streaming Recording URL: https://#{bbb_domain}/playback/video/#{meeting_id}\n\n//Note: The streaming link will be expired after 14 days.```"
+    message_content += "```Current Time: #{current_time}\n```"
+    message_content += "---------------------------------------------------------------------------------------------------------------\n"
+    message_content += "---------------------------------------------------------------------------------------------------------------\n"
+  
+  end
 
 # Create a hash representing the message payload
 payload = {
